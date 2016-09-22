@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ts2k16",
+  "name": "Twerk-Sim 2K16",
+  "description": "Work it, twerk it, grow that wood!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Funwayguy","Darkosto"],
+  "credits": "",
+  "logoFile": "title.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]

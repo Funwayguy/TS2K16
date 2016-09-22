@@ -1,0 +1,2 @@
+echo "Downloading dependencies..."
+curl -k -o make_logs https://gist.githubusercontent.com/Funwayguy/d8738b52cecd8e047e4c85806416408f/raw/twerk_sim_make_logs
