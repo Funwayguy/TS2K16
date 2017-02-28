@@ -37,14 +37,14 @@ public class PlayerGrowthManager
 				sprintTime = player.ticksExisted;
 			} else if(player.ticksExisted - sprintTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				sprintTime = player.ticksExisted;
 			}
 		} else if(player.isSneaking() && !wasCrouched)
 		{
 			if(player.ticksExisted - crouchTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				crouchTime = player.ticksExisted;
 			}
 		}
@@ -66,7 +66,7 @@ public class PlayerGrowthManager
 					
 					if(state.getBlock() instanceof IGrowable)
 					{
-						String id = state.getBlock().getRegistryName().toString();
+						String id = state.getBlock().getRegistryName() + "";
 						
 						if(TSSettings.blacklist.contains(id))
 						{
