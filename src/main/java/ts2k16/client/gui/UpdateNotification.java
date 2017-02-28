@@ -1,9 +1,5 @@
 package ts2k16.client.gui;
 
-import java.io.BufferedInputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -11,6 +7,11 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import org.apache.logging.log4j.Level;
 import ts2k16.core.TS2K16;
 import ts2k16.core.TSSettings;
+
+import java.io.BufferedInputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class UpdateNotification
 {
@@ -26,9 +27,9 @@ public class UpdateNotification
 		
 		hasChecked = true;
 		
-		if(TS2K16.HASH == "CI_MOD_" + "HASH")
+		if(TS2K16.HASH.equals("CI_MOD_" + "HASH"))
 		{
-			event.player.addChatMessage(new TextComponentString(TextFormatting.RED + "THIS COPY OF " + TS2K16.NAME.toUpperCase() + " IS NOT FOR PUBLIC USE!"));
+			event.player.sendMessage(new TextComponentString(TextFormatting.RED + "THIS COPY OF " + TS2K16.NAME.toUpperCase() + " IS NOT FOR PUBLIC USE!"));
 			return;
 		}
 		
@@ -52,7 +53,6 @@ public class UpdateNotification
 					{
 						hasLog = true;
 						changelog.add(s);
-						continue;
 					} else
 					{
 						break;
@@ -62,9 +62,6 @@ public class UpdateNotification
 					if(hasLog)
 					{
 						break;
-					} else
-					{
-						continue;
 					}
 				} else if(hasLog)
 				{
@@ -74,7 +71,7 @@ public class UpdateNotification
 			
 			if(!hasLog || data.length < 2)
 			{
-				event.player.addChatMessage(new TextComponentString(TextFormatting.RED + "An error has occured while checking " + TS2K16.NAME + " version!"));
+				event.player.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occured while checking " + TS2K16.NAME + " version!"));
 				TS2K16.logger.log(Level.ERROR, "An error has occured while checking " + TS2K16.NAME + " version! (hasLog: " + hasLog + ", data: " + data.length + ")");
 				return;
 			} else
@@ -89,27 +86,26 @@ public class UpdateNotification
 			
 			if(hasUpdate)
 			{
-				event.player.addChatMessage(new TextComponentString(TextFormatting.RED + "Update for " + TS2K16.NAME + " available!"));
-				event.player.addChatMessage(new TextComponentString("Download: http://minecraft.curseforge.com/projects/twerk-sim-2k16"));
+				event.player.sendMessage(new TextComponentString(TextFormatting.RED + "Update for " + TS2K16.NAME + " available!"));
+				event.player.sendMessage(new TextComponentString("Download: http://minecraft.curseforge.com/projects/twerk-sim-2k16"));
 				
 				for(int i = 2; i < data.length; i++)
 				{
 					if(i > 5)
 					{
-						event.player.addChatMessage(new TextComponentString("and " + (data.length - 5) + " more..."));
+						event.player.sendMessage(new TextComponentString("and " + (data.length - 5) + " more..."));
 						break;
 					} else
 					{
-						event.player.addChatMessage(new TextComponentString("- " + data[i].trim()));
+						event.player.sendMessage(new TextComponentString("- " + data[i].trim()));
 					}
 				}
 			}
 			
 		} catch(Exception e)
 		{
-			event.player.addChatMessage(new TextComponentString(TextFormatting.RED + "An error has occured while checking " + TS2K16.NAME + " version!"));
+			event.player.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occured while checking " + TS2K16.NAME + " version!"));
 			TS2K16.logger.log(Level.ERROR, "An error has occured while checking " + TS2K16.NAME + " version!", e);
-			return;
 		}
 	}
 	
@@ -135,19 +131,13 @@ public class UpdateNotification
 		{
 			if(doRedirect)
 			{
-				try
-				{
-					return getNotification(con.getHeaderField("location"), false);
-				} catch(Exception e)
-				{
-					throw e;
-				}
+				return getNotification(con.getHeaderField("location"), false);
 			} else
 			{
 				throw new Exception();
 			}
 		}
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		int chars_read;
 		//	int total = 0;
 		while((chars_read = in.read()) != -1)
@@ -157,8 +147,6 @@ public class UpdateNotification
 		}
 		final String page = buffer.toString();
 		
-		String[] pageSplit = page.split("\\n");
-		
-		return pageSplit;
+		return page.split("\\n");
 	}
 }

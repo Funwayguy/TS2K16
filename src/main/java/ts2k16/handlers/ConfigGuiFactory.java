@@ -29,6 +29,7 @@ public class ConfigGuiFactory implements IModGuiFactory
 	}
 
 	@Override
+	@Deprecated
 	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element)
 	{
 		return null;
