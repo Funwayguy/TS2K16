@@ -32,13 +32,16 @@ public class PlayerGrowthManager
 		
 		if(player.isSprinting())
 		{
-			if(!wasSprinting)
+			if(TSSettings.allowSprint)
 			{
-				sprintTime = player.ticksExisted;
-			} else if(player.ticksExisted - sprintTime > TSSettings.cooldown)
-			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
-				sprintTime = player.ticksExisted;
+				if(!wasSprinting)
+				{
+					sprintTime = player.ticksExisted;
+				} else if(player.ticksExisted - sprintTime > TSSettings.cooldown)
+				{
+					pulseGrowth(player.worldObj, player.getPosition(), player);
+					sprintTime = player.ticksExisted;
+				}
 			}
 		} else if(player.isSneaking() && !wasCrouched)
 		{
