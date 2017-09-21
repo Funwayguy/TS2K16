@@ -30,7 +30,7 @@ public class PlayerGrowthManager
 			crouchTime = 0;
 		}
 		
-		if(player.isSprinting())
+		if(TSSettings.allowSprint && player.isSprinting())
 		{
 			if(!wasSprinting)
 			{

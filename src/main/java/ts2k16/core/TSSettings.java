@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class TSSettings
 {
-	public static boolean hideUpdates = false;
 	public static int cooldown = 10;
 	public static boolean allowSprint = false;
 	public static int radius = 3;
