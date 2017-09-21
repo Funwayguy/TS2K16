@@ -30,21 +30,21 @@ public class PlayerGrowthManager
 			crouchTime = 0;
 		}
 		
-		if(player.isSprinting())
+		if(TSSettings.allowSprint && player.isSprinting())
 		{
 			if(!wasSprinting)
 			{
 				sprintTime = player.ticksExisted;
 			} else if(player.ticksExisted - sprintTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				sprintTime = player.ticksExisted;
 			}
 		} else if(player.isSneaking() && !wasCrouched)
 		{
 			if(player.ticksExisted - crouchTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				crouchTime = player.ticksExisted;
 			}
 		}
@@ -88,7 +88,7 @@ public class PlayerGrowthManager
 						
 						if(flag && world.rand.nextInt(100) < TSSettings.chance)
 						{
-							if(ItemDye.applyBonemeal(new ItemStack(Items.DYE), world, offset, player))
+							if(ItemDye.applyBonemeal(new ItemStack(Items.DYE), world, offset, player, player.getActiveHand()))
 							{
 		                        world.playEvent(2005, offset, 0);
 							}
