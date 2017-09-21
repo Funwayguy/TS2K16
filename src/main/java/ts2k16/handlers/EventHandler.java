@@ -15,7 +15,7 @@ public class EventHandler
 	@SubscribeEvent
 	public void onLivingUpdate(LivingUpdateEvent event)
 	{
-		if(event.getEntityLiving().worldObj.isRemote || !(event.getEntityLiving() instanceof EntityPlayer))
+		if(event.getEntityLiving().world.isRemote || !(event.getEntityLiving() instanceof EntityPlayer))
 		{
 			return;
 		}

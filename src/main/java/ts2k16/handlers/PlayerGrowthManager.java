@@ -30,21 +30,21 @@ public class PlayerGrowthManager
 			crouchTime = 0;
 		}
 		
-		if(player.isSprinting())
+		if(TSSettings.allowSprint && player.isSprinting())
 		{
 			if(!wasSprinting)
 			{
 				sprintTime = player.ticksExisted;
 			} else if(player.ticksExisted - sprintTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				sprintTime = player.ticksExisted;
 			}
 		} else if(player.isSneaking() && !wasCrouched)
 		{
 			if(player.ticksExisted - crouchTime > TSSettings.cooldown)
 			{
-				pulseGrowth(player.worldObj, player.getPosition(), player);
+				pulseGrowth(player.world, player.getPosition(), player);
 				crouchTime = player.ticksExisted;
 			}
 		}
